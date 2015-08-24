@@ -1,14 +1,14 @@
 
-all: liblow.dylib cmain
+all: liblow.dylib a.out
 
 liblow.dylib: low.rs
-	rustc --crate-type=dylib low.rs
+	rustc --crate-type=dylib $^
 
-cmain: main.c
-	cc -o cmain main.c
+a.out: cmain.c liblow.dylib
+	cc -o a.out $^
 
 clean:
-	rm cmain
-	rm *.dylib
+	rm -f *.out
+	rm -f *.dylib
 
 .PHONY: clean
